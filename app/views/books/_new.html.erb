@@ -1,0 +1,21 @@
+<h2>登録</h2>
+<%= form_with model: book, url: post_books_path(book_post), method: :post do |f| %>
+  <div>
+    <label>区分</label>
+    <%= f.select :inout, [["収入", 1], ["支出", 2]], {} %>
+  </div>
+
+  <div>
+    <label>科目</label>
+    <%= f.text_field :category %>
+  </div>
+
+  <div>
+    <label>金額</label>
+    <%= f.number_field :amount %>
+  </div>
+
+  <div>
+    <%= f.submit '登録' %>
+  </div>
+<% end %>

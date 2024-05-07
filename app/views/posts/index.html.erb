@@ -1,0 +1,38 @@
+<div class = "container">
+  <div class = "row">
+    <div class = "col-md-10 center">
+      <div class =" alert">
+        <%= flash[:notice] %>
+      </div>
+      <%= render 'layouts/errors', obj: @post %>
+      <div>
+        <%= render 'new', post_new: @post %>
+      </div>
+      <h2>一覧</h2>
+      <table class = "table table-striped">
+        <thead>
+          <tr>
+            <th>年度</th>
+            <th>月</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @posts.each do |post| %>
+            <% if post.user_id == current_user.id %>
+              <tr>
+                <td><%= post.year %>年</td>
+                <td><%= post.month %>月</td>
+                <td><%= link_to '詳細', post_path(post.id), class: "btn btn-success" %></td>
+                <td><%= link_to '編集', edit_post_path(post.id), class: "btn btn-primary" %></td>
+                <td><%= link_to "削除", post_path(post.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger" %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

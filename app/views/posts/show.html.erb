@@ -1,0 +1,53 @@
+<div class = "container">
+  <div class = "row">
+    <h2><%= @post.year %>月<%= @post.month %>月 詳細</h2>
+    <div class =" alert">
+      <%= flash[:notice] %>
+    </div>
+  </div>
+  <div class = "row">
+    <div class = "col-md-3">
+      <%= render 'books/new', book: @book, book_post: @post %>
+    </div>
+    <div class = "col-md-8 offset-md-1">
+      <table class = "table table-striped">
+        <thead>
+          <tr>
+            <th>区分</th>
+            <th>科目</th>
+            <th>金額</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% sum_spending = 0 %>
+        <% sum_income = 0 %>
+        <% @post.books.each do |book| %>
+          <tr>
+            <td>
+              <% if book.inout == 1  %>
+                <% sum_income += book.amount %>
+                収入
+              <% else %>
+                <% sum_spending += book.amount %>
+                支出
+              <% end %>
+            </td>
+            <td><%= book.category  %></td>
+            <td><%= book.amount %></td>
+            <td><%= link_to "編集", edit_post_book_path(@post, book), class: "btn btn-success" %></td>
+            <td><%= link_to "削除", post_book_path(@post, book), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger" %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+      <div>
+        収支合計:<%= sum_income %> 支出合計:<%= sum_spending %>
+      </div>
+      <div>
+        合計金額:<%= sum_income - sum_spending %>
+      </div>
+    </div>
+  </div>
+</div>

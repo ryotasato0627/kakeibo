@@ -1,0 +1,10 @@
+<h2>新規登録</h2>
+<%= form_with model: post_new do |f| %>
+  <label>年度</label>
+  <%= f.text_field :year %>
+
+  <label>月</label>
+  <%= f.text_field :month %>
+
+  <%= f.submit '作成' %>
+<% end %>
